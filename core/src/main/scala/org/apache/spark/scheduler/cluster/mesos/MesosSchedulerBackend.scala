@@ -127,7 +127,7 @@ private[spark] class MesosSchedulerBackend(
     val executorInfo = MesosExecutorInfo.newBuilder()
       .setExecutorId(ExecutorID.newBuilder().setValue(execId).build())
       .setCommand(command)
-      .setData(ByteString.copyFrom(createExecArg()))
+      //.setData(ByteString.copyFrom(createExecArg()))
       .addResources(cpus)
       .addResources(memory)
 
@@ -270,7 +270,7 @@ private[spark] class MesosSchedulerBackend(
       .setExecutor(createExecutorInfo(slaveId))
       .setName(task.name)
       .addResources(cpuResource)
-      .setData(MesosTaskLaunchData(task.serializedTask, task.attemptNumber).toByteString)
+      //.setData(MesosTaskLaunchData(task.serializedTask, task.attemptNumber).toByteString)
       .build()
   }
 
