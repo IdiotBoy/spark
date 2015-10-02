@@ -44,7 +44,7 @@ private[spark] class MesosExecutorBackend
     driver.sendStatusUpdate(MesosTaskStatus.newBuilder()
       .setTaskId(mesosTaskId)
       .setState(TaskState.toMesos(state))
-      .setData(ByteString.copyFrom(data))
+      //.setData(ByteString.copyFrom(data))
       .build())
   }
 
@@ -78,8 +78,9 @@ private[spark] class MesosExecutorBackend
 
   override def launchTask(d: ExecutorDriver, taskInfo: TaskInfo) {
     val taskId = taskInfo.getTaskId.getValue.toLong
-    val taskData = MesosTaskLaunchData.fromByteString(taskInfo.getData)
-    if (executor == null) {
+    //val taskData = MesosTaskLaunchData.fromByteString(taskInfo.getData)
+    val taskData = MesosTaskLaunchData.fromByteString(null)
+      if (executor == null) {
       logError("Received launchTask but executor was null")
     } else {
       SparkHadoopUtil.get.runAsSparkUser { () =>

@@ -140,7 +140,7 @@ private[spark] class MesosSchedulerBackend(
     val executorInfo = builder
       .setExecutorId(ExecutorID.newBuilder().setValue(execId).build())
       .setCommand(command)
-      .setData(ByteString.copyFrom(createExecArg()))
+      //.setData(ByteString.copyFrom(createExecArg()))
 
     sc.conf.getOption("spark.mesos.executor.docker.image").foreach { image =>
       MesosSchedulerBackendUtil
@@ -323,7 +323,7 @@ private[spark] class MesosSchedulerBackend(
       .setExecutor(executorInfo)
       .setName(task.name)
       .addAllResources(cpuResources)
-      .setData(MesosTaskLaunchData(task.serializedTask, task.attemptNumber).toByteString)
+      //.setData(MesosTaskLaunchData(task.serializedTask, task.attemptNumber).toByteString)
       .build()
     (taskInfo, finalResources)
   }

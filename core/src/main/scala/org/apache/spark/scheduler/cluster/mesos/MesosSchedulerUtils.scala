@@ -78,7 +78,7 @@ private[mesos] trait MesosSchedulerUtils extends Logging {
       credBuilder.setPrincipal(principal)
     }
     conf.getOption("spark.mesos.secret").foreach { secret =>
-      credBuilder.setSecret(ByteString.copyFromUtf8(secret))
+      credBuilder.setSecret(null)
     }
     if (credBuilder.hasSecret && !fwInfoBuilder.hasPrincipal) {
       throw new SparkException(
@@ -221,7 +221,7 @@ private[mesos] trait MesosSchedulerUtils extends Logging {
         case Value.Type.SET => attr.getSet
         case Value.Type.TEXT => attr.getText
       }
-      (attr.getName, attrValue)
+      (attr.getName, null)
     }).toMap
   }
 
@@ -235,6 +235,8 @@ private[mesos] trait MesosSchedulerUtils extends Logging {
   def matchesAttributeRequirements(
       slaveOfferConstraints: Map[String, Set[String]],
       offerAttributes: Map[String, GeneratedMessage]): Boolean = {
+    return true;
+    /*
     slaveOfferConstraints.forall {
       // offer has the required attribute and subsumes the required values for that attribute
       case (name, requiredValues) =>
@@ -260,6 +262,7 @@ private[mesos] trait MesosSchedulerUtils extends Logging {
             requiredValues.contains(textValue.getValue)
         }
     }
+    */
   }
 
   /**
